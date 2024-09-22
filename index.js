@@ -2,14 +2,14 @@
 import express from 'express';
 const app = express();
 import dotenv from 'dotenv';
-import { home } from './src/controllers/home.js';
 import { homeRouter } from './src/routes/home.js';
+import { error } from './src/middleware/500.js';
 dotenv.config();
 const PORT = process.env.PORT;
 app.use(express.json());
 
 app.use(homeRouter);
-
+app.use(error);
 app.listen(PORT, () => {
   if (!PORT) {
     throw new Error('No port found in enviroments');
